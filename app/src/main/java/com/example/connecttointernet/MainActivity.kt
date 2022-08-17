@@ -5,12 +5,13 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.example.connecttointernet.data.NotionalResponse
 import com.example.connecttointernet.databinding.ActivityMainBinding
+import com.example.connecttointernet.util.RequestsInterceptor
 import com.google.gson.Gson
 import okhttp3.*
 import java.io.IOException
 
 class MainActivity : AppCompatActivity() {
-    private val client = OkHttpClient()
+    private val client = OkHttpClient.Builder().addInterceptor(RequestsInterceptor()).build()
     lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
