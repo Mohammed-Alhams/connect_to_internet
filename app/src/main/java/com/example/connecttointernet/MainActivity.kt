@@ -1,10 +1,12 @@
 package com.example.connecttointernet
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import com.example.connecttointernet.databinding.ActivityMainBinding
+import com.example.connecttointernet.util.toNotionalResponse
 import okhttp3.*
+import org.json.JSONObject
 import java.io.IOException
 
 class MainActivity : AppCompatActivity() {
@@ -32,7 +34,11 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onResponse(call: Call, response: Response) {
-                Log.d(TAG, "onResponse: ${response.body?.string() ?: ""}")
+//                Log.d(TAG, "onResponse: ${response.body?.string() ?: ""}")
+                response.body?.string()?.let { jsonString ->
+                    val result = JSONObject(jsonString).toNotionalResponse()
+                    Log.d(TAG, "onResponse: $result")
+                }
             }
 
         })
