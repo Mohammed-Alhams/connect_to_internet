@@ -1,6 +1,8 @@
 package com.example.connecttointernet.data
 
+import com.google.gson.annotations.SerializedName
+
 data class NotionalResponse(
     val name: String,
-    val countries: List<Country>
+    @SerializedName("country") val countries: List<Country>
 )
