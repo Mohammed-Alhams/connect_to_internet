@@ -8,6 +8,7 @@ import com.example.connecttointernet.databinding.ActivityMainBinding
 import io.reactivex.rxjava3.core.*
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
+import io.reactivex.rxjava3.subjects.PublishSubject
 import java.util.concurrent.TimeUnit
 
 class MainActivity : AppCompatActivity() {
@@ -25,24 +26,21 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun foo() {
-        val observable = Observable.interval(1, TimeUnit.SECONDS).publish()
-        observable.connect()
+//        val observable = Observable.interval(1, TimeUnit.SECONDS)
 
-        observable
-            .subscribe(
-                {t -> Log.d(TAG, "first subscriber: $t")},
-                {e -> },
-                {}
-            )
+        val subject = PublishSubject.create<Int>()
+//        observable.subscribe(subject)
 
-        Thread.sleep(4000)
+//        Thread.sleep(5000)
 
-        observable
-            .subscribe(
-                {t -> Log.d(TAG, "second subscriber: $t")},
-                {e -> },
-                {}
-            )
+        subject.onNext(100)
+        subject.onNext(102)
+        subject.subscribe(
+            {t -> Log.d(TAG, "foo: $t")},
+            {e -> }
+        )
+        subject.onNext(104)
+        subject.onNext(106)
     }
 
     override fun onDestroy() {
