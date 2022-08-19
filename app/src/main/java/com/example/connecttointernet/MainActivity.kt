@@ -1,8 +1,13 @@
 package com.example.connecttointernet
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleCoroutineScope
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.lifecycleScope
 import com.example.connecttointernet.databinding.ActivityMainBinding
 import kotlinx.coroutines.*
 
@@ -15,20 +20,20 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        GlobalScope/*coroutines scope*/.launch(Dispatchers.IO/*coroutines dispatcher*/)
-        {//coroutines builder
-            fakeRequest()
+        lifecycleScope.launch(Dispatchers.IO){
+            repeatLogs()
         }
-        Log.d(TAG, "onCreate: after request")
     }
 
-    suspend fun fakeRequest() {
+    suspend fun repeatLogs() {
         delay(3000)
-        Log.d(TAG, "fakeRequest: result")
-        Log.d(TAG, "fakeRequest: ${Thread.currentThread().name}")
-        withContext(Dispatchers.Main) {
-            binding.tvText.text = "fakeRequest"
-            Log.d(TAG, "fakeRequest: ${Thread.currentThread().name}")//context switching
+        withContext(Dispatchers.Main){
+            startActivity(Intent(this@MainActivity, MainActivity2::class.java))
+            finish()
+        }
+        while (true){
+            Log.d(TAG, "repeatLogs: Still working..")
+            delay(1000)
         }
     }
 
