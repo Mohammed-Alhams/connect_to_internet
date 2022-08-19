@@ -20,27 +20,21 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        var req2: String? = null
-        var req1: String? = null
-
         val job = lifecycleScope.launch {
-            val job1 = launch { req1 = request1() }
-            val job2 = launch { req2 = request2() }
+            val deferred1 = async { request1() }
+            val deferred2 = async { request2() }
 
-            job2.join()
-//            job1.join()
-
-            Log.d(TAG, "onCreate: $req1")//null
-            Log.d(TAG, "onCreate: $req2")//request2
+            Log.d(TAG, "onCreate: ${deferred1.await()}")//request1
+            Log.d(TAG, "onCreate: ${deferred2.await()}")//request2
         }
     }
 
     suspend fun request1(): String {
-        delay(3000)
+        delay(1000)
         return "request1"
     }
     suspend fun request2(): String {
-        delay(1000)
+        delay(3000)
         return "request2: "
     }
 
