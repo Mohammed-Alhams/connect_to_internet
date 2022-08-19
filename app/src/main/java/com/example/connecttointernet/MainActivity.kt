@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.example.connecttointernet.databinding.ActivityMainBinding
+import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -30,7 +31,10 @@ class MainActivity : AppCompatActivity() {
     lateinit var job5: Job
 
     private fun playWithCoroutines() {
-        job1 = lifecycleScope.launch {
+        val coroutinesExceptionHandler = CoroutineExceptionHandler { coroutineContext, throwable ->
+            Log.d(TAG, "playWithCoroutines: ${throwable.message.toString()}")
+        }
+        job1 = lifecycleScope.launch(coroutinesExceptionHandler) {
             delay(2000)
             Log.d(TAG, "playWithCoroutines: job1")
             job2 = launch {
@@ -47,6 +51,7 @@ class MainActivity : AppCompatActivity() {
             }
             job3 = launch {
                 delay(2000)
+                val error = 5/0
                 Log.d(TAG, "playWithCoroutines: job3")
             }
         }
