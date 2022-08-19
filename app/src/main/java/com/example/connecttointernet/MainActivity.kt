@@ -5,9 +5,7 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.doOnTextChanged
 import com.example.connecttointernet.databinding.ActivityMainBinding
-import io.reactivex.rxjava3.core.Flowable
-import io.reactivex.rxjava3.core.Maybe
-import io.reactivex.rxjava3.core.Scheduler
+import io.reactivex.rxjava3.core.*
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 
@@ -26,9 +24,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun foo() {
-        val flowable = Flowable.range(1, 1000)
+        val observable = Observable.range(1, 1000)
 
-        flowable.onBackpressureLatest()//Back-pressure strategies: drop, latest, buffer,
+        observable.toFlowable(BackpressureStrategy.LATEST)//Back-pressure strategies: drop, latest, buffer,
             .observeOn(Schedulers.io(), false, 5)
             .subscribe(
                 {t -> Log.d(TAG, "foo: $t")},
