@@ -9,6 +9,7 @@ import io.reactivex.rxjava3.core.*
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import io.reactivex.rxjava3.subjects.AsyncSubject
+import io.reactivex.rxjava3.subjects.BehaviorSubject
 import io.reactivex.rxjava3.subjects.PublishSubject
 import java.util.concurrent.TimeUnit
 
@@ -27,12 +28,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun foo() {
-        val observable = Observable.interval(1, TimeUnit.SECONDS).take(5)
+        val observable = Observable.interval(1000, TimeUnit.MILLISECONDS).take(10)
 
-        val subject = AsyncSubject.create<Long>()
+        val subject = PublishSubject.create<Long>()
         observable.subscribe(subject)
 
-        Thread.sleep(5000)
+        Thread.sleep(4500)
 
         subject.subscribe(
             {t -> Log.d(TAG, "foo: $t")},
