@@ -20,17 +20,13 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        lifecycleScope.launch(Dispatchers.IO){
+        val job = lifecycleScope.launch(Dispatchers.IO){
             repeatLogs()
         }
+        binding.btnStop.setOnClickListener { job.cancel() }
     }
 
     suspend fun repeatLogs() {
-        delay(3000)
-        withContext(Dispatchers.Main){
-            startActivity(Intent(this@MainActivity, MainActivity2::class.java))
-            finish()
-        }
         while (true){
             Log.d(TAG, "repeatLogs: Still working..")
             delay(1000)
