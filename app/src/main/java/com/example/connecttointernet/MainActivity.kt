@@ -20,17 +20,19 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val job = lifecycleScope.launch(Dispatchers.IO){
-            repeatLogs()
+        val job = lifecycleScope.launch {
+            launch { request1() }
+            launch { request2() }
         }
-        binding.btnStop.setOnClickListener { job.cancel() }
     }
 
-    suspend fun repeatLogs() {
-        while (true){
-            Log.d(TAG, "repeatLogs: Still working..")
-            delay(1000)
-        }
+    suspend fun request1() {
+        delay(3000)
+        Log.d(TAG, "request1: ")
+    }
+    suspend fun request2() {
+        delay(1000)
+        Log.d(TAG, "request2: ")
     }
 
     companion object {
