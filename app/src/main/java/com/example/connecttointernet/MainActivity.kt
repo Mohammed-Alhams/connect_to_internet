@@ -11,6 +11,7 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 import io.reactivex.rxjava3.subjects.AsyncSubject
 import io.reactivex.rxjava3.subjects.BehaviorSubject
 import io.reactivex.rxjava3.subjects.PublishSubject
+import io.reactivex.rxjava3.subjects.ReplaySubject
 import java.util.concurrent.TimeUnit
 
 class MainActivity : AppCompatActivity() {
@@ -30,7 +31,7 @@ class MainActivity : AppCompatActivity() {
     private fun foo() {
         val observable = Observable.interval(1000, TimeUnit.MILLISECONDS).take(10)
 
-        val subject = PublishSubject.create<Long>()
+        val subject = ReplaySubject.create<Long>()
         observable.subscribe(subject)
 
         Thread.sleep(4500)
