@@ -3,11 +3,10 @@ package com.example.connecttointernet
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.widget.doOnTextChanged
 import com.example.connecttointernet.databinding.ActivityMainBinding
-import io.reactivex.rxjava3.core.Single
-import io.reactivex.rxjava3.core.SingleObserver
+import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.disposables.CompositeDisposable
-import io.reactivex.rxjava3.disposables.Disposable
 
 class MainActivity : AppCompatActivity() {
 
@@ -24,16 +23,22 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun foo() {
-        val singleObservable = Single.just(5)
-        singleObservable.subscribe(this::onDataSuccess, this::onDataError)
+        val completable = Completable.create { emmiter ->
+            binding.etText.doOnTextChanged { _, _, _, count ->
+                if (count >= 5)
+                    emmiter.onComplete()
+            }
+        }
+
+        completable.subscribe(this::onSendingCompleted,this::onSendingFailed)
     }
 
-    private fun onDataSuccess(t: Int){
-        Log.d(TAG, "onDataSuccess: $t")
+    private fun onSendingCompleted(){
+        Log.d(TAG, "onSendingCompleted: ")
     }
 
-    private fun onDataError(e: Throwable){
-        Log.d(TAG, "onDataError: ${e.message}")
+    private fun onSendingFailed(e: Throwable){
+        Log.d(TAG, "onSendingFailed: ${e.message}")
     }
 
     override fun onDestroy() {
