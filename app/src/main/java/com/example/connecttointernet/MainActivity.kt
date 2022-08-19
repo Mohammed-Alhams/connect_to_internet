@@ -1,15 +1,13 @@
 package com.example.connecttointernet
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleCoroutineScope
-import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import com.example.connecttointernet.databinding.ActivityMainBinding
-import kotlinx.coroutines.*
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
 
@@ -19,23 +17,39 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        val job = lifecycleScope.launch {
-            val deferred1 = async { request1() }
-            val deferred2 = async { request2() }
-
-            Log.d(TAG, "onCreate: ${deferred1.await()}")//request1
-            Log.d(TAG, "onCreate: ${deferred2.await()}")//request2
+        playWithCoroutines()
+        binding.btnStop.setOnClickListener {
+            job2.cancel()
         }
     }
 
-    suspend fun request1(): String {
-        delay(1000)
-        return "request1"
-    }
-    suspend fun request2(): String {
-        delay(3000)
-        return "request2: "
+    lateinit var job1: Job
+    lateinit var job2: Job
+    lateinit var job3: Job
+    lateinit var job4: Job
+    lateinit var job5: Job
+
+    private fun playWithCoroutines() {
+        job1 = lifecycleScope.launch {
+            delay(2000)
+            Log.d(TAG, "playWithCoroutines: job1")
+            job2 = launch {
+                delay(2000)
+                Log.d(TAG, "playWithCoroutines: job2")
+                job4 = launch {
+                    delay(2000)
+                    Log.d(TAG, "playWithCoroutines: job4")
+                }
+                job5 = launch {
+                    delay(2000)
+                    Log.d(TAG, "playWithCoroutines: job5")
+                }
+            }
+            job3 = launch {
+                delay(2000)
+                Log.d(TAG, "playWithCoroutines: job3")
+            }
+        }
     }
 
     companion object {
