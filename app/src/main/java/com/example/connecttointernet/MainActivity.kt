@@ -5,7 +5,7 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.doOnTextChanged
 import com.example.connecttointernet.databinding.ActivityMainBinding
-import io.reactivex.rxjava3.core.Completable
+import io.reactivex.rxjava3.core.Maybe
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 
 class MainActivity : AppCompatActivity() {
@@ -23,22 +23,21 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun foo() {
-        val completable = Completable.create { emmiter ->
-            binding.etText.doOnTextChanged { _, _, _, count ->
-                if (count >= 5)
-                    emmiter.onComplete()
+        val maybe = Maybe.create<String> { emiter ->
+            binding.etText.doOnTextChanged { text, _, _, count ->
+                when(text.toString()) {
+                    "yes" -> emiter.onSuccess("yesssssss")
+                    "no" -> emiter.onComplete()
+                }
             }
         }
 
-        completable.subscribe(this::onSendingCompleted,this::onSendingFailed)
-    }
+        maybe.subscribe(
+            { t -> Log.d(TAG, "foo: $t") },
+            { e -> Log.d(TAG, "foo: ${e.message}") },
+            { Log.d(TAG, "foo: completed") }
+        )
 
-    private fun onSendingCompleted(){
-        Log.d(TAG, "onSendingCompleted: ")
-    }
-
-    private fun onSendingFailed(e: Throwable){
-        Log.d(TAG, "onSendingFailed: ${e.message}")
     }
 
     override fun onDestroy() {
