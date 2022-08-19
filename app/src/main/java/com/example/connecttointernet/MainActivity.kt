@@ -20,19 +20,28 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        var req2: String? = null
+        var req1: String? = null
+
         val job = lifecycleScope.launch {
-            launch { request1() }
-            launch { request2() }
+            val job1 = launch { req1 = request1() }
+            val job2 = launch { req2 = request2() }
+
+            job2.join()
+//            job1.join()
+
+            Log.d(TAG, "onCreate: $req1")//null
+            Log.d(TAG, "onCreate: $req2")//request2
         }
     }
 
-    suspend fun request1() {
+    suspend fun request1(): String {
         delay(3000)
-        Log.d(TAG, "request1: ")
+        return "request1"
     }
-    suspend fun request2() {
+    suspend fun request2(): String {
         delay(1000)
-        Log.d(TAG, "request2: ")
+        return "request2: "
     }
 
     companion object {
