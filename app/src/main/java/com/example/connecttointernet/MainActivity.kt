@@ -5,9 +5,12 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.example.connecttointernet.databinding.ActivityMainBinding
-import kotlinx.coroutines.CoroutineExceptionHandler
-import kotlinx.coroutines.Job
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
@@ -18,42 +21,22 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        playWithCoroutines()
-        binding.btnStop.setOnClickListener {
-            job2.cancel()
-        }
+        playWithFlow()
     }
 
-    lateinit var job1: Job
-    lateinit var job2: Job
-    lateinit var job3: Job
-    lateinit var job4: Job
-    lateinit var job5: Job
+    private fun playWithFlow() {
+        val flow = flow<Int> {
+            for (i in 1..12) {
+                Log.d(TAG, "playWithFlow: ${Thread.currentThread().name}")
+                emit(i)
+                delay(1000)
+            }
+        }.flowOn(Dispatchers.Default)
 
-    private fun playWithCoroutines() {
-        val coroutinesExceptionHandler = CoroutineExceptionHandler { coroutineContext, throwable ->
-            Log.d(TAG, "playWithCoroutines: ${throwable.message.toString()}")
-        }
-        job1 = lifecycleScope.launch(coroutinesExceptionHandler) {
-            delay(2000)
-            Log.d(TAG, "playWithCoroutines: job1")
-            job2 = launch {
-                delay(2000)
-                Log.d(TAG, "playWithCoroutines: job2")
-                job4 = launch {
-                    delay(2000)
-                    Log.d(TAG, "playWithCoroutines: job4")
-                }
-                job5 = launch {
-                    delay(2000)
-                    Log.d(TAG, "playWithCoroutines: job5")
-                }
-            }
-            job3 = launch {
-                delay(2000)
-                val error = 5/0
-                Log.d(TAG, "playWithCoroutines: job3")
-            }
+        lifecycleScope.launch {
+            flow.map { it * it }
+                .filter { it % 2 == 0 }
+                .collect { Log.d(TAG, "playWithFlow: $it") }
         }
     }
 
