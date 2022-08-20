@@ -7,11 +7,9 @@ import androidx.lifecycle.lifecycleScope
 import com.example.connecttointernet.databinding.ActivityMainBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOn
-import kotlinx.coroutines.flow.onCompletion
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
+import kotlin.math.log
 
 class MainActivity : AppCompatActivity() {
 
@@ -25,16 +23,15 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun playWithFlow() {
-        val flow = flow<Int> {
-            for (i in 1..12) {
-                Log.d(TAG, "playWithFlow: ${Thread.currentThread().name}")
-                if (i == 5){
-                    throw Exception("ايروووووووورررررررررررر")
-                }
-                emit(i)
+
+        val mRange = 1..10
+
+        val flow = mRange.asFlow()
+            .onEach {
                 delay(1000)
             }
-        }.flowOn(Dispatchers.Default)
+            .flowOn(Dispatchers.Default)
+
 
         lifecycleScope.launch {
             flow.catch { Log.d(TAG, "playWithFlow: ${it.message}") }
