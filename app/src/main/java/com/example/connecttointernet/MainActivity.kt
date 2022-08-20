@@ -1,7 +1,7 @@
 package com.example.connecttointernet
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.example.connecttointernet.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
