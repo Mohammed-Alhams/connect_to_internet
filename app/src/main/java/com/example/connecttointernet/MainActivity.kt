@@ -24,19 +24,19 @@ class MainActivity : AppCompatActivity() {
 
     private fun playWithFlow() {
 
-        val mRange = 1..10
-
-        val flow = mRange.asFlow()
-            .onEach {
-                delay(1000)
+        val mFlow = flow<Int> {
+            for (i in 1..10){
+                emit(i)
+                delay(2000)
             }
-            .flowOn(Dispatchers.Default)
-
-
+        }
+        
         lifecycleScope.launch {
-            flow.catch { Log.d(TAG, "playWithFlow: ${it.message}") }
-                .onCompletion { Log.d(TAG, "playWithFlow: completed") }
-                .collect { Log.d(TAG, "playWithFlow: $it") }
+            mFlow.buffer()//Buffers flow emissions via channel of a specified capacity and runs collector in a separate coroutine
+                .collect{
+                    delay(2000)
+                    Log.d(TAG, "playWithFlow: $it")
+                }
         }
     }
 
