@@ -2,8 +2,8 @@ package com.example.connecttointernet
 
 import android.content.SharedPreferences
 
-class SharedPrefDataStorage(private val sharedPref: SharedPreferences?): IDataStorage {
-    override fun updateLoginState(isLogin: Boolean) {
+class SharedPrefDataStorage(private val sharedPref: SharedPreferences?): IStatusSaver {
+    private fun updateLoginState(isLogin: Boolean) {
         val editor = sharedPref?.edit()
         editor?.let {
             it.apply {
@@ -11,5 +11,9 @@ class SharedPrefDataStorage(private val sharedPref: SharedPreferences?): IDataSt
                 apply()
             }
         }
+    }
+
+    override fun saveStatus(status: Boolean) {
+        updateLoginState(status)
     }
 }
