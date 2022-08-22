@@ -4,6 +4,8 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.connecttointernet.builder.FoodOrder
 import com.example.connecttointernet.databinding.ActivityMainBinding
+import com.example.connecttointernet.factory_method.MobileNotificationFactory
+import com.example.connecttointernet.factory_method.WearableNotificationFactory
 
 class MainActivity : AppCompatActivity() {
 
@@ -17,5 +19,12 @@ class MainActivity : AppCompatActivity() {
             .fish("")
             .fish("")
             .build()
+
+        val wearableNotification = WearableNotificationFactory()
+            .create(WearableNotificationFactory.PUSH)
+
+        val mobilePushNotification = MobileNotificationFactory()
+            .create(MobileNotificationFactory.PUSH)
+
     }
 }
