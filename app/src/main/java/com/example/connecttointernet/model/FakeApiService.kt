@@ -1,6 +1,8 @@
 package com.example.connecttointernet.model
 
 import com.example.connecttointernet.model.domain.Wisdom
+import io.reactivex.rxjava3.core.Single
+import java.util.concurrent.TimeUnit
 import kotlin.random.Random
 
 class FakeApiService {
@@ -16,4 +18,8 @@ class FakeApiService {
 
     fun getRandomWisdom() = wisdomList[Random.nextInt(wisdomList.size)]
 
+    fun getRxRandomWisdom(): Single<Wisdom>{
+        val wisdom = wisdomList[Random.nextInt(wisdomList.size)]
+        return Single.just(wisdom).delay(5000, TimeUnit.MILLISECONDS)
+    }
 }

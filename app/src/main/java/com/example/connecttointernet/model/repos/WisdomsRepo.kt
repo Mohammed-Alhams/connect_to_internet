@@ -12,4 +12,5 @@ class MainRepo {
 
     fun getUser() = fakeDatabaseService.getUser()
 
+    fun getRxWisdom() = fakeApiService.getRxRandomWisdom()
 }
