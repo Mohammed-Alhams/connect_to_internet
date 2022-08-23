@@ -41,13 +41,23 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            showIfTrue="@{viewModel.loading}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
         <Button
             android:id="@+id/btnGenerate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="104dp"
-            ButtonColor="@{viewModel.color}"
-            android:onClick="@{() -> viewModel.changeColorRandomly()}"
+            android:onClick="@{() -> viewModel.changeLoading()}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvWisdomDate" />

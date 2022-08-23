@@ -15,6 +15,16 @@ fun changeColors(view: View, colors: Colors?){
     }
 }
 
+@BindingAdapter("showIfTrue")
+fun showIfTrue(view: View, value: Boolean?){
+    if (value == true) {
+        view.visibility = View.VISIBLE
+    } else {
+        view.visibility = View.GONE
+    }
+}
+
+
 enum class Colors {
     RED,
     BLUE,

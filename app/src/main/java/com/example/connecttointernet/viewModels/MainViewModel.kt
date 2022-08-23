@@ -25,6 +25,12 @@ class MainViewModel : ViewModel() {
         color.postValue(Colors.values().random())
     }
 
+    val loading = MutableLiveData<Boolean>(true)
+    fun changeLoading(){
+        if (loading.value == true) loading.postValue(false) else loading.postValue(true)
+    }
+
+
     init {
         getUserInfo()
     }
