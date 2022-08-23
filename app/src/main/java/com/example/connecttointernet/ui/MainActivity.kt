@@ -3,6 +3,8 @@ package com.example.connecttointernet.ui
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
+import com.example.connecttointernet.R
 import com.example.connecttointernet.databinding.ActivityMainBinding
 import com.example.connecttointernet.viewModels.MainViewModel
 
@@ -13,23 +15,16 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        binding.viewModel = viewModel
+        binding.lifecycleOwner = this
         setup()
     }
 
     private fun setup() {
         viewModel.getUserInfo()
-        binding.btnGenerate.setOnClickListener { viewModel.getWisdom() }
+        binding.btnGenerate.setOnClickListener { viewModel.getSomeWisdom() }
 
-        viewModel.currentUser.observe(
-            this
-        ) { binding.tvName.text = it.userName }
-
-        viewModel.wisdom.observe(this) {
-            binding.tvWisdomDate.text = it.publishDate
-            binding.tvWisdomContent.text = it.content
-        }
     }
 
 }

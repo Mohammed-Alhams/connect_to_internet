@@ -19,7 +19,7 @@ class MainViewModel : ViewModel() {
     val wisdom: LiveData<Wisdom>
         get() = _wisdom
 
-    fun getWisdom() = _wisdom.postValue(repo.getWisdom())
+    fun getSomeWisdom() = _wisdom.postValue(repo.getWisdom())
 
     fun getUserInfo() = _currentUser.postValue(repo.getUser())
 
