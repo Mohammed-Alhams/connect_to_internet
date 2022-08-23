@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import com.example.connecttointernet.model.domain.User
 import com.example.connecttointernet.model.domain.Wisdom
 import com.example.connecttointernet.model.repos.MainRepo
+import com.example.connecttointernet.ui.bindingAdapters.Colors
 
 class MainViewModel : ViewModel() {
 
@@ -19,6 +20,10 @@ class MainViewModel : ViewModel() {
     val wisdom: LiveData<Wisdom>
         get() = _wisdom
 
+    val color = MutableLiveData<Colors>()
+    fun changeColorRandomly(){
+        color.postValue(Colors.values().random())
+    }
 
     init {
         getUserInfo()
