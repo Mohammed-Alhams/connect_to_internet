@@ -18,13 +18,9 @@ class MainActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
-        setup()
     }
 
     private fun setup() {
-        viewModel.getUserInfo()
-        binding.btnGenerate.setOnClickListener { viewModel.getSomeWisdom() }
-
     }
 
 }
