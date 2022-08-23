@@ -3,12 +3,14 @@ package com.example.connecttointernet.viewModels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.connecttointernet.model.domain.User
 import com.example.connecttointernet.model.domain.Wisdom
 import com.example.connecttointernet.model.repos.MainRepo
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
+import kotlinx.coroutines.launch
 
 class MainViewModel : ViewModel() {
 
@@ -38,7 +40,7 @@ class MainViewModel : ViewModel() {
         getUserInfo()
     }
 
-    fun getSomeWisdom() = _wisdom.postValue(repo.getWisdom())
+//    fun getSomeWisdom() = _wisdom.postValue(repo.getWisdom())
 
     fun getRxSomeWisdom() {
         disposable.add(
@@ -47,6 +49,13 @@ class MainViewModel : ViewModel() {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::onFetchWisdomSuccess, this::onFetchWisdomFailure)
         )
+    }
+
+    fun getCoroutinesSomeWisdom() {
+        viewModelScope.launch {
+            val result = repo.getWisdom()
+            _wisdom.postValue(result)
+        }
     }
 
     fun onFetchWisdomSuccess(wisdom: Wisdom) {
