@@ -7,6 +7,8 @@ import com.example.connecttointernet.model.repos.MainRepo
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
@@ -15,8 +17,8 @@ class MainViewModel : ViewModel() {
     private val repo = MainRepo()
     private val disposable = CompositeDisposable()
 
-    private val _currentUser = MutableLiveData<User>()
-    val currentUser: LiveData<User>
+    private val _currentUser = MutableStateFlow(repo.getUser())
+    val currentUser: StateFlow<User>
         get() = _currentUser
 
     private val _wisdom = repo.getWisdomFlow().asLiveData()
@@ -32,11 +34,6 @@ class MainViewModel : ViewModel() {
 //    fun changeLoading(){
 //        if (loading.value == true) loading.postValue(false) else loading.postValue(true)
 //    }
-
-
-    init {
-        getUserInfo()
-    }
 
 //    fun getSomeWisdom() = _wisdom.postValue(repo.getWisdom())
 
@@ -72,10 +69,7 @@ class MainViewModel : ViewModel() {
     fun onFetchWisdomFailure(throwable: Throwable) {
 
     }
-
-
-    fun getUserInfo() = _currentUser.postValue(repo.getUser())
-
+    
     override fun onCleared() {
         super.onCleared()
         disposable.dispose()
