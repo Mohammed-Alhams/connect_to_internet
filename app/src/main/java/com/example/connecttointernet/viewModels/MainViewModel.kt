@@ -1,31 +1,33 @@
 package com.example.connecttointernet.viewModels
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.connecttointernet.API
 import com.example.connecttointernet.model.JokeApiResponse
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.schedulers.Schedulers
 
 class MainViewModel : ViewModel() {
+
+    val joke = MutableLiveData<JokeApiResponse>()
+
 
     init {
         getRandomJoke()
     }
 
     private fun getRandomJoke() {
-        API.apiService.getRandomJoke().enqueue(object : Callback<JokeApiResponse> {
-            override fun onResponse(
-                call: Call<JokeApiResponse>,
-                response: Response<JokeApiResponse>
-            ) {
-                TODO("Not yet implemented")
-            }
+        API.apiService.getRandomJoke()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                {
+                    joke.postValue(it)
+                },
+                {
 
-            override fun onFailure(call: Call<JokeApiResponse>, t: Throwable) {
-                TODO("Not yet implemented")
-            }
-        })
+                }
+            )
     }
 
 }

@@ -15,13 +15,28 @@
         tools:context=".MainActivity">
 
         <TextView
+            android:id="@+id/tvSetup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Hello World!"
+            android:text="@{viewModel.joke.setup}"
+            android:textSize="24dp"
+            app:layout_constraintBottom_toTopOf="@id/tvDel"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Setup" />
+
+        <TextView
+            android:id="@+id/tvDel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{viewModel.joke.delivery}"
+            android:textSize="24dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/tvSetup"
+            tools:text="Setup" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
