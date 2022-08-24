@@ -1,15 +1,13 @@
 package com.example.connecttointernet.viewModels
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.example.connecttointernet.model.domain.User
 import com.example.connecttointernet.model.domain.Wisdom
 import com.example.connecttointernet.model.repos.MainRepo
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class MainViewModel : ViewModel() {
@@ -21,7 +19,7 @@ class MainViewModel : ViewModel() {
     val currentUser: LiveData<User>
         get() = _currentUser
 
-    private val _wisdom = MutableLiveData<Wisdom>()
+    private val _wisdom = repo.getWisdomFlow().asLiveData()
     val wisdom: LiveData<Wisdom>
         get() = _wisdom
 
@@ -51,15 +49,24 @@ class MainViewModel : ViewModel() {
         )
     }
 
-    fun getCoroutinesSomeWisdom() {
-        viewModelScope.launch {
-            val result = repo.getWisdom()
-            _wisdom.postValue(result)
-        }
-    }
+//    fun getCoroutinesSomeWisdom() {
+//        viewModelScope.launch {
+//            val result = repo.getWisdom()
+//            _wisdom.postValue(result)
+//        }
+//    }
+
+//    fun getWisdomFlow() {
+//        viewModelScope.launch {
+//            repo.getWisdomFlow().collect{
+//                _wisdom.postValue(it)
+//            }
+//        }
+//    }
+
 
     fun onFetchWisdomSuccess(wisdom: Wisdom) {
-        _wisdom.postValue(wisdom)
+//        _wisdom.postValue(wisdom)
     }
 
     fun onFetchWisdomFailure(throwable: Throwable) {

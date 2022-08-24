@@ -3,6 +3,7 @@ package com.example.connecttointernet.model.repos
 import com.example.connecttointernet.model.FakeApiService
 import com.example.connecttointernet.model.FakeDatabaseService
 import com.example.connecttointernet.model.domain.Wisdom
+import kotlinx.coroutines.flow.flow
 
 class MainRepo {
 
@@ -16,4 +17,8 @@ class MainRepo {
     fun getUser() = fakeDatabaseService.getUser()
 
     fun getRxWisdom() = fakeApiService.getRxRandomWisdom()
+
+    fun getWisdomFlow() =
+        flow<Wisdom> { emit(fakeApiService.getRandomWisdom()) }
+
 }
