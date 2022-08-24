@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.connecttointernet.JokesRepository
 import com.example.connecttointernet.networking.API
 import com.example.connecttointernet.model.JokeApiResponse
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class MainViewModel : ViewModel() {
@@ -20,8 +21,9 @@ class MainViewModel : ViewModel() {
 
     private fun getRandomJoke() {
         viewModelScope.launch {
-            val response = repo.getRandomJoke()
-            joke.postValue(response.body())
+            repo.getRandomJoke().collect{
+                joke.postValue(it)
+            }
         }
 
     }
