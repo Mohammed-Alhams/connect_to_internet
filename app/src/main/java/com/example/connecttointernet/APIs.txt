@@ -3,3 +3,4 @@ https://v2.jokeapi.dev/joke/Any
 https://api.nationalize.io?name=ahmed
 https://restcountries.eu/rest/v2/all
 https://api.imgflip.com/get_memes
+https://v2.jokeapi.dev/joke/any
