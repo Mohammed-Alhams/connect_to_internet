@@ -15,10 +15,10 @@ class JokesRepository {
     suspend fun getRandomJoke(): Flow<State<JokeApiResponse?>> {
 
         return flow {
-            val response = API.apiService.getRandomJoke()
+            emit(State.Loading)
 
             try {
-                emit(State.Loading)
+                val response = API.apiService.getRandomJoke()
                 if (response.isSuccessful)
                     emit(State.Success(response.body()))
                 else
