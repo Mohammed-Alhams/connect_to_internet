@@ -5,6 +5,7 @@ import com.example.connecttointernet.model.State
 import com.example.connecttointernet.networking.API
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import retrofit2.Response
 
 class JokesRepository {
 
@@ -14,20 +15,24 @@ class JokesRepository {
      */
     suspend fun getRandomJoke(): Flow<State<JokeApiResponse?>> {
 
+        return wrapWithFlow(API.apiService::getRandomJoke)
+
+    }
+
+
+    private fun <T> wrapWithFlow(function : suspend () -> Response<T>) : Flow<State<T?>>{
         return flow {
             emit(State.Loading)
-
             try {
-                val response = API.apiService.getRandomJoke()
+                val response = function()
                 if (response.isSuccessful)
                     emit(State.Success(response.body()))
                 else
-                    emit(State.Failed(response.message()))
-            } catch (e: Exception) {
+                    emit(State.Failed(response.message().toString()))
+            } catch (e : Exception){
                 emit(State.Failed(e.message.toString()))
             }
         }
-
     }
 
 }
