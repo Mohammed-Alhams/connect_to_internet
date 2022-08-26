@@ -1,5 +1,6 @@
 package com.example.connecttointernet.util
 
+import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter

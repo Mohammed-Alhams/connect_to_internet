@@ -1,6 +1,5 @@
 package com.example.connecttointernet.model
 
-import com.example.connecttointernet.model.movie.popular.PopularResponse
 import com.example.connecttointernet.networking.API
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -8,7 +7,7 @@ import retrofit2.Response
 
 class MoviesRepository {
 
-    fun getPopular(): Flow<State<PopularResponse?>> =
+    fun getPopular() =
         wrapWithFlow { API.movieService.getPopular("6f65d57c475f6a1b3a9eedd189c66691") }
 
     private fun <T> wrapWithFlow(function: suspend () -> Response<T>): Flow<State<T?>> =
