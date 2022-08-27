@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
+    app:startDestination="@id/blankAFragment">
+
+    <fragment
+        android:id="@+id/blankAFragment"
+        android:name="com.example.connecttointernet.ui.BlankAFragment"
+        android:label="fragment_blank_a"
+        tools:layout="@layout/fragment_blank_a" >
+        <action
+            android:id="@+id/action_blankAFragment_to_blankBFragment"
+            app:destination="@id/blankBFragment" />
+        <action
+            android:id="@+id/action_blankAFragment_to_blankCFragment"
+            app:destination="@id/blankCFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/blankBFragment"
+        android:name="com.example.connecttointernet.ui.BlankBFragment"
+        android:label="fragment_blank_b"
+        tools:layout="@layout/fragment_blank_b" />
+    <fragment
+        android:id="@+id/blankCFragment"
+        android:name="com.example.connecttointernet.ui.BlankCFragment"
+        android:label="fragment_blank_c"
+        tools:layout="@layout/fragment_blank_c" >
+        <action
+            android:id="@+id/action_blankCFragment_to_blankDFragment"
+            app:destination="@id/blankDFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/blankDFragment"
+        android:name="com.example.connecttointernet.ui.BlankDFragment"
+        android:label="fragment_blank_d"
+        tools:layout="@layout/fragment_blank_d" />
+</navigation>

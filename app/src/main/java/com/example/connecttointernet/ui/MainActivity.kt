@@ -1,4 +1,4 @@
-package com.example.connecttointernet
+package com.example.connecttointernet.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
