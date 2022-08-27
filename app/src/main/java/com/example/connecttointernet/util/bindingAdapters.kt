@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.connecttointernet.model.State
 import com.example.connecttointernet.model.movie.popular.Movie
+import com.example.connecttointernet.ui.recyclerView.BaseAdapter
 import com.example.connecttointernet.ui.recyclerView.MoviesAdapter
 
 
@@ -41,9 +42,10 @@ fun loadImage(view: ImageView, url: String?) {
 }
 
 @BindingAdapter("app:items")
-fun setAdapterItems(view: RecyclerView, items: List<Movie>?) {
+fun <T> setAdapterItems(view: RecyclerView, items: List<T>?) {
+    val adapter : BaseAdapter<T>? = (view.adapter as BaseAdapter<T>)
     if (items != null)
-        (view.adapter as MoviesAdapter).setItems(items)
+        adapter?.setItems(items)
     else
-        (view.adapter as MoviesAdapter).setItems(emptyList())
+        adapter?.setItems(emptyList())
 }
