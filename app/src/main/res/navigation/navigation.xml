@@ -12,7 +12,11 @@
         tools:layout="@layout/fragment_blank_a" >
         <action
             android:id="@+id/action_blankAFragment_to_blankBFragment"
-            app:destination="@id/blankBFragment" />
+            app:destination="@id/blankBFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
         <action
             android:id="@+id/action_blankAFragment_to_blankCFragment"
             app:destination="@id/blankCFragment" />
