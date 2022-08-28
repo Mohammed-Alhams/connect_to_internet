@@ -1,14 +1,19 @@
 package com.example.connecttointernet.ui
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
 import com.example.connecttointernet.R
+import com.example.connecttointernet.databinding.FragmentBlankABinding
 
 
 class BlankAFragment : Fragment() {
+
+    private lateinit var binding: FragmentBlankABinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,8 +25,21 @@ class BlankAFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        binding = FragmentBlankABinding.inflate(layoutInflater)
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_blank_a, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.btnB.setOnClickListener { v ->
+            v.findNavController().navigate(R.id.action_blankAFragment_to_blankBFragment)
+        }
+
+        binding.btnC.setOnClickListener { v ->
+            v.findNavController().navigate(R.id.action_blankAFragment_to_blankCFragment)
+        }
     }
 
     companion object {
