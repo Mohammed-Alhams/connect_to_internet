@@ -6,6 +6,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
+import androidx.navigation.ui.setupWithNavController
 import com.example.connecttointernet.R
 import com.example.connecttointernet.databinding.ActivityMainBinding
 
@@ -23,6 +24,9 @@ class MainActivity : AppCompatActivity() {
         super.onResume()
         navController = findNavController(R.id.fragment_container)
         NavigationUI.setupActionBarWithNavController(this, navController)
+
+        binding.bottomNavigationView.setupWithNavController(navController)
+
     }
 
     override fun onSupportNavigateUp(): Boolean {

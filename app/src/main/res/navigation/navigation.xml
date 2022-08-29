@@ -28,7 +28,8 @@
         tools:layout="@layout/fragment_blank_b" >
         <argument
             android:name="myText"
-            app:argType="string" />
+            app:argType="string"
+            android:defaultValue="default" />
     </fragment>
     <fragment
         android:id="@+id/blankCFragment"
