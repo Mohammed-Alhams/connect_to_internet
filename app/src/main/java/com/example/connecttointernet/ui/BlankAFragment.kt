@@ -1,7 +1,6 @@
 package com.example.connecttointernet.ui
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -34,7 +33,10 @@ class BlankAFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.btnB.setOnClickListener { v ->
-            v.findNavController().navigate(R.id.action_blankAFragment_to_blankBFragment)
+            val dirToB = BlankAFragmentDirections
+                .actionBlankAFragmentToBlankBFragment("hello from A")
+
+            v.findNavController().navigate(dirToB)
         }
 
         binding.btnC.setOnClickListener { v ->
