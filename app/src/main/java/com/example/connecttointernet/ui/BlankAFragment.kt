@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import com.example.connecttointernet.R
 import com.example.connecttointernet.databinding.FragmentBlankABinding
 
@@ -35,8 +36,10 @@ class BlankAFragment : Fragment() {
         binding.btnB.setOnClickListener { v ->
             val dirToB = BlankAFragmentDirections
                 .actionBlankAFragmentToBlankBFragment("hello from A")
-
-            v.findNavController().navigate(dirToB)
+            val extras = FragmentNavigatorExtras(
+                binding.ivTransition to "iconTransition"
+            )
+            v.findNavController().navigate(dirToB, extras)
         }
 
         binding.btnC.setOnClickListener { v ->
