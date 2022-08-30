@@ -24,6 +24,7 @@ abstract class NoteDatabase : RoomDatabase() {
         fun getInstance(context: Context) =
             instance ?: synchronized(this) { buildDatabase(context).also { instance = it } }
 
+        fun getInstanceWithoutContext() = instance!!
     }
 
 }
