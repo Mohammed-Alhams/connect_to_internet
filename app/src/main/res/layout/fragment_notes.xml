@@ -16,20 +16,21 @@
         tools:context=".ui.NotesFragment">
 
         <EditText
-            android:hint="Enter your note text"
             android:id="@+id/edit_text_note"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:hint="Enter your note text"
             android:text="@={viewModel.noteText}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
+            android:id="@+id/buttonInsert"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="insert"
             android:onClick="@{() -> viewModel.insertNote()}"
+            android:text="insert"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/edit_text_note" />
