@@ -1,23 +1,21 @@
 package com.example.connecttointernet.data.database
 
-import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.example.connecttointernet.data.Note
-import io.reactivex.rxjava3.core.Completable
 
 @Dao
 interface NoteDao {
 
     @Insert
-    fun insertNote(note: Note): Completable
+    suspend fun insertNote(note: Note)
 
     @Delete
-    fun deleteNote(note: Note): Completable
+    suspend fun deleteNote(note: Note)
 
     @Update
-    fun updateNote(note: Note): Completable
+    suspend fun updateNote(note: Note)
 
     @Query("SELECT * FROM Note ORDER BY id desc")
-    fun getAllNotes(): LiveData<List<Note>>
+    suspend fun getAllNotes(): List<Note>
 
 }
