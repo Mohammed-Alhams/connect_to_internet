@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 
 @Entity()
 data class Note(
-    @PrimaryKey(autoGenerate = true) val id: Long,
+    @PrimaryKey(autoGenerate = false) val id: Long,
     @ColumnInfo(name = "Content") val content: String,
     val date: String,
     val isImportant: Boolean
