@@ -10,5 +10,6 @@ data class Note(
     @PrimaryKey(autoGenerate = true) val id: Long,
     @ColumnInfo(name = "Content") val content: String,
     val date: Date,
-    val isImportant: Boolean
+    val isImportant: Boolean,
+    val archived: Boolean
 )

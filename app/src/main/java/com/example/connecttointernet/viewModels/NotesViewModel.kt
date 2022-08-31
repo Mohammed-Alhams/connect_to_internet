@@ -44,7 +44,7 @@ class NotesViewModel : ViewModel(), IBaseInterActionListener {
     fun insertNote() {
         viewModelScope.launch {
             noteText.value?.let {
-                repository.insertNote(Note(0, it, Date(), false))
+                repository.insertNote(Note(0, it, Date(), isImportant = false, archived = false))
             }
         }
     }
