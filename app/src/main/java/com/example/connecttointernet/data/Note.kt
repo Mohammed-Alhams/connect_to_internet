@@ -11,5 +11,5 @@ data class Note(
     @ColumnInfo(name = "Content") val content: String,
     val date: Date,
     val isImportant: Boolean,
-    val archived: Boolean?
+    val isArchived: Boolean?
 )

@@ -2,12 +2,13 @@ package com.example.connecttointernet.data.database
 
 import android.content.Context
 import androidx.room.*
+import androidx.room.migration.AutoMigrationSpec
 import com.example.connecttointernet.data.Note
 
 @Database(
     entities = [Note::class],
     version = 2,
-    autoMigrations = [AutoMigration(from = 1, to = 2)]
+    autoMigrations = [AutoMigration(from = 1, to = 2, spec = NoteDatabase.MIGRATE_1_2spec::class)]
 )
 @TypeConverters(Converters::class)
 abstract class NoteDatabase : RoomDatabase() {
@@ -40,5 +41,13 @@ abstract class NoteDatabase : RoomDatabase() {
 //        }
 
     }
+
+    @RenameColumn(
+        tableName = "Note",
+        fromColumnName = "archived",
+        toColumnName = "isArchived"
+    )
+    class MIGRATE_1_2spec : AutoMigrationSpec
+
 
 }
