@@ -21,7 +21,10 @@ abstract class NoteDatabase : RoomDatabase() {
         private var instance: NoteDatabase? = null
 
         private fun buildDatabase(context: Context) =
-            Room.databaseBuilder(context, NoteDatabase::class.java, DATABASE_NAME).build()
+            Room.databaseBuilder(context, NoteDatabase::class.java, DATABASE_NAME)
+                /**.fallbackToDestructiveMigration()**///Allows Room to destructively recreate database
+//                tables if Migrations that would migrate old database schemas to the latest schema version are not found.
+                .build()
 
         fun getInstance(context: Context) =
             instance ?: synchronized(this) { buildDatabase(context).also { instance = it } }
