@@ -1,11 +1,13 @@
-package com.example.connecttointernet.ui
+package com.example.connecttointernet.ui.bases
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.databinding.library.baseAdapters.BR
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.example.connecttointernet.ui.SimpleDiffUtil
 
 
 interface IBaseInterActionListener
@@ -16,8 +18,16 @@ abstract class BaseAdapter<T>(
 ) : RecyclerView.Adapter<BaseAdapter.BaseViewHolder>() {
 
     fun setItems(newItems: List<T>) {
+        val diffResult = DiffUtil.calculateDiff(
+            SimpleDiffUtil<T>(items, newItems) { oldItem, newItem ->
+                areItemsTheSame(oldItem, newItem)
+            }
+        )
         items = newItems
+        diffResult.dispatchUpdatesTo(this)
     }
+
+    open fun areItemsTheSame(oldItem: T, newItem: T) = oldItem?.equals(newItem) == true
 
     fun getItems() = items
 

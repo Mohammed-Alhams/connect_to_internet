@@ -2,10 +2,10 @@ package com.example.connecttointernet.util
 
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.connecttointernet.ui.BaseAdapter
+import com.example.connecttointernet.ui.bases.BaseAdapter
 
 @BindingAdapter("app:adapterItems")
-fun <T> setAdapterItems(view: RecyclerView, items: List<T>?) {
+fun <T> adapterItems(view: RecyclerView, items: List<T>?) {
     val adapter: BaseAdapter<T>? = (view.adapter as BaseAdapter<T>)
     if (items != null)
         adapter?.setItems(items)

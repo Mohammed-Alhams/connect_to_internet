@@ -5,22 +5,16 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.connecttointernet.data.Note
 import com.example.connecttointernet.data.repositories.NotesRepository
-import com.example.connecttointernet.ui.IBaseInterActionListener
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import com.example.connecttointernet.ui.bases.IBaseInterActionListener
 import io.reactivex.rxjava3.schedulers.Schedulers
 
-class NotesViewModel : ViewModel(), IBaseInterActionListener{
-
-    val noteText = MutableLiveData<String>()
-
-    private val _notes = MutableLiveData<List<Note>>()
-    val notes : LiveData<List<Note>> = _notes
+class NotesViewModel : ViewModel(), IBaseInterActionListener {
 
     private val repository = NotesRepository()
 
-    init{
-        getAllNotes()
-    }
+    val noteText = MutableLiveData<String>()
+
+    val notes: LiveData<List<Note>> = repository.getAllNotes()
 
     fun insertNote() {
         noteText.value?.let {
@@ -29,24 +23,6 @@ class NotesViewModel : ViewModel(), IBaseInterActionListener{
                 .subscribe()
             noteText.postValue("")
         }
-    }
-
-    fun getAllNotes(){
-        repository.getAllNotes()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(
-                this::onGetNote,
-                this::onGetNoteFail
-            )
-    }
-
-    private fun onGetNote(notes: List<Note>){
-        _notes.postValue(notes)
-    }
-
-    private fun onGetNoteFail(throwable: Throwable){
-
     }
 
 }
