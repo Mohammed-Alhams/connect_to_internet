@@ -22,7 +22,7 @@ class NotesViewModel : ViewModel(), IBaseInterActionListener {
     fun insertNote() {
         viewModelScope.launch {
             noteText.value?.let {
-                repository.insertNote(Note(0, it, "2.2.2022", false))
+                repository.insertNote(Note(0, it, Date(), false))
             }
         }
     }
