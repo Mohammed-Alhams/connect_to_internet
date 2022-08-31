@@ -26,6 +26,7 @@ class NotesFragment : Fragment() {
         binding = FragmentNotesBinding.inflate(layoutInflater)
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
+        binding.rvNotes.adapter = NotesAdapter(emptyList(), viewModel)
         // Inflate the layout for this fragment
         return binding.root
     }

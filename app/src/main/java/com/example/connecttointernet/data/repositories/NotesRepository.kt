@@ -12,4 +12,5 @@ class NotesRepository {
         return notesDao.insertNote(note)
     }
 
+    fun getAllNotes() = notesDao.getAllNotes()
 }

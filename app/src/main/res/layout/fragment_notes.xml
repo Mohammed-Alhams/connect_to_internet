@@ -35,5 +35,18 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/edit_text_note" />
 
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvNotes"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:adapterItems="@{viewModel.notes}"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/buttonInsert"
+            tools:listitem="@layout/item_note" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
