@@ -19,4 +19,7 @@ interface NoteDao {
     @Query("SELECT * FROM Note ORDER BY id desc")
     fun getAllNotes(): Flow<List<Note>>
 
+    @Query("SELECT * FROM Note WHERE Content LIKE :searchTerm ORDER BY id ")
+    suspend fun getFilteredNotes(searchTerm: String): List<Note>
+    //each query have just one result
 }

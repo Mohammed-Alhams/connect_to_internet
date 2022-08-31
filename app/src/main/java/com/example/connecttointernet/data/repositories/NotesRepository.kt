@@ -12,4 +12,8 @@ class NotesRepository {
     }
 
     fun getAllNotes() = notesDao.getAllNotes()
+
+    suspend fun getFilteredNotes(searchTerm: String) =
+        notesDao.getFilteredNotes("%$searchTerm%")
+
 }
