@@ -1,4 +1,4 @@
-package com.example.connecttointernet.networking
+package com.example.connecttointernet.data.remote
 
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor

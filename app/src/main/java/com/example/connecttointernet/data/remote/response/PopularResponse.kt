@@ -1,13 +1,13 @@
-package com.example.connecttointernet.model.movie.popular
+package com.example.connecttointernet.data.remote.response
 
 
 import com.google.gson.annotations.SerializedName
 
-data class PopularResponse(
+data class PopularResponse<T>(
     @SerializedName("page")
     val page: Int? = null,
     @SerializedName("results")
-    val movies: List<Movie>? = null,
+    val movieDtos: List<T>? = null,
     @SerializedName("total_pages")
     val totalPages: Int? = null,
     @SerializedName("total_results")

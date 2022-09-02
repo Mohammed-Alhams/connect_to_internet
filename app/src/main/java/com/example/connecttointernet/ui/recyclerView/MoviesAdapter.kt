@@ -1,7 +1,8 @@
 package com.example.connecttointernet.ui.recyclerView
 
 import com.example.connecttointernet.R
-import com.example.connecttointernet.model.movie.popular.Movie
+import com.example.connecttointernet.data.remote.response.MovieDto
+import com.example.connecttointernet.domain.models.Movie
 
 class MoviesAdapter(
     movies: List<Movie>,
@@ -11,5 +12,5 @@ class MoviesAdapter(
 }
 
 interface IMovieInteractionListener : IBaseInterActionListener {
-    fun onClickMovie(movie: Movie)
+    fun onClickMovie(movieDto: MovieDto)
 }

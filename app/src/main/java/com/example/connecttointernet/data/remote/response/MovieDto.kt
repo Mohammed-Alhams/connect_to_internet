@@ -1,9 +1,9 @@
-package com.example.connecttointernet.model.movie.popular
+package com.example.connecttointernet.data.remote.response
 
 
 import com.google.gson.annotations.SerializedName
 
-data class Movie(
+data class MovieDto(
     @SerializedName("adult")
     val adult: Boolean? = null,
     @SerializedName("backdrop_path")
@@ -11,7 +11,7 @@ data class Movie(
     @SerializedName("genre_ids")
     val genreIds: List<Int?>? = null,
     @SerializedName("id")
-    val id: Int? = null,
+    val id: Long? = null,
     @SerializedName("original_language")
     val originalLanguage: String? = null,
     @SerializedName("original_title")

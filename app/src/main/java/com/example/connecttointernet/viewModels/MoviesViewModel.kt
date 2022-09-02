@@ -1,17 +1,25 @@
 package com.example.connecttointernet.viewModels
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
-import com.example.connecttointernet.model.MoviesRepository
-import com.example.connecttointernet.model.movie.popular.Movie
+import com.example.connecttointernet.data.remote.State
+import com.example.connecttointernet.data.remote.response.MovieDto
+import com.example.connecttointernet.domain.models.Movie
+import com.example.connecttointernet.domain.repositories.MoviesRepository
 import com.example.connecttointernet.ui.recyclerView.IMovieInteractionListener
 
 class MoviesViewModel : ViewModel(), IMovieInteractionListener {
 
     private val moviesRepository = MoviesRepository()
 
-    val movieLiveData = moviesRepository.getPopular().asLiveData()
-    override fun onClickMovie(movie: Movie) {
+    init {
+        moviesRepository.getPopular()
+    }
+
+    val movieLiveData: LiveData<State<List<Movie>?>> = moviesRepository.getPopular().asLiveData()
+
+    override fun onClickMovie(movieDto: MovieDto) {
 
     }
 

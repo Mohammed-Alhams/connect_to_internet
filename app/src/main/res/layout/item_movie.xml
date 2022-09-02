@@ -7,7 +7,7 @@
 
         <variable
             name="item"
-            type="com.example.connecttointernet.model.movie.popular.Movie" />
+            type="com.example.connecttointernet.domain.models.Movie" />
 
         <variable
             name="listener"
@@ -19,7 +19,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
-        android:onClick="@{() -> listener.onClickMovie(item)}"
         app:cardCornerRadius="8dp"
         app:cardElevation="4dp">
 
@@ -31,7 +30,7 @@
                 android:id="@+id/ivMovie"
                 android:layout_width="match_parent"
                 android:layout_height="196dp"
-                app:imageUrl="@{item.posterPath}"
+                app:imageUrl="@{item.imgUrl}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -41,7 +40,7 @@
                 android:id="@+id/tvTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{item.originalTitle}"
+                android:text="@{item.title}"
                 app:layout_constraintBottom_toTopOf="@id/tvRate"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -52,7 +51,7 @@
                 android:id="@+id/tvRate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{String.valueOf(item.voteAverage)}"
+                android:text="@{String.valueOf(item.vote)}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tvTitle"

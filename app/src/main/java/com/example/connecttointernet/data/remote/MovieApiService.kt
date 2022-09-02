@@ -1,6 +1,7 @@
-package com.example.connecttointernet.networking
+package com.example.connecttointernet.data.remote
 
-import com.example.connecttointernet.model.movie.popular.PopularResponse
+import com.example.connecttointernet.data.remote.response.MovieDto
+import com.example.connecttointernet.data.remote.response.PopularResponse
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -27,7 +28,7 @@ interface MovieApiService {
     @GET("popular")
     suspend fun getPopular(
         @Query("api_key") apiKey: String
-    ): Response<PopularResponse>
+    ): Response<PopularResponse<MovieDto>>
 
 //    @GET("joke/any")//annotation used to specify end point for this function
 //    suspend fun getRandomJoke(): Response<JokeApiResponse> //if using callBacks

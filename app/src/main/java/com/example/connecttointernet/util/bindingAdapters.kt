@@ -1,15 +1,12 @@
 package com.example.connecttointernet.util
 
-import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.connecttointernet.model.State
-import com.example.connecttointernet.model.movie.popular.Movie
+import com.example.connecttointernet.data.remote.State
 import com.example.connecttointernet.ui.recyclerView.BaseAdapter
-import com.example.connecttointernet.ui.recyclerView.MoviesAdapter
 
 
 @BindingAdapter("app:showWhenSuccess")

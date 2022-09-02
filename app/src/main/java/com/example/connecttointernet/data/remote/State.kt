@@ -1,4 +1,4 @@
-package com.example.connecttointernet.model
+package com.example.connecttointernet.data.remote
 
 sealed class State<out T> {
     data class Success<T>(val data: T) : State<T>()
