@@ -12,6 +12,7 @@ import com.example.connecttointernet.ui.recyclerView.MoviesAdapter
 import com.example.connecttointernet.viewModels.MoviesViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
+import javax.inject.Named
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -19,7 +20,9 @@ class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
     val viewModel by viewModels<MoviesViewModel>()
 
-    @Inject lateinit var injectedField : String
+    @Inject
+    @Named("second")
+    lateinit var injectedField : String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
