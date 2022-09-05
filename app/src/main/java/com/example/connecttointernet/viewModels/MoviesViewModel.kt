@@ -3,21 +3,27 @@ package com.example.connecttointernet.viewModels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
-import com.example.connecttointernet.data.remote.State
+import androidx.lifecycle.viewModelScope
 import com.example.connecttointernet.data.remote.response.MovieDto
 import com.example.connecttointernet.domain.models.Movie
 import com.example.connecttointernet.domain.repositories.MoviesRepository
 import com.example.connecttointernet.ui.recyclerView.IMovieInteractionListener
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class MoviesViewModel : ViewModel(), IMovieInteractionListener {
-
-    private val moviesRepository = MoviesRepository()
+@HiltViewModel
+class MoviesViewModel @Inject constructor(
+    moviesRepository: MoviesRepository
+) : ViewModel(), IMovieInteractionListener {
 
     init {
-        moviesRepository.getPopular()
+        viewModelScope.launch {
+            moviesRepository.refreshMovies()
+        }
     }
 
-    val movieLiveData: LiveData<State<List<Movie>?>> = moviesRepository.getPopular().asLiveData()
+    val movieLiveData: LiveData<List<Movie>?> = moviesRepository.getPopular().asLiveData()
 
     override fun onClickMovie(movieDto: MovieDto) {
 

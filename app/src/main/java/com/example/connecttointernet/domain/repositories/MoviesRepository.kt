@@ -1,33 +1,58 @@
 package com.example.connecttointernet.domain.repositories
 
-import com.example.connecttointernet.data.remote.API
-import com.example.connecttointernet.data.remote.State
+import com.example.connecttointernet.data.local.daos.MovieDao
+import com.example.connecttointernet.data.remote.MovieApiService
 import com.example.connecttointernet.domain.mapper.MovieMapper
+import com.example.connecttointernet.domain.mapper.MoviesEntityMapper
 import com.example.connecttointernet.domain.models.Movie
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.map
 import okio.IOException
+import javax.inject.Inject
 
-class MoviesRepository {
+class MoviesRepository @Inject constructor(
+    private val mapperToMovie: MovieMapper,
+    private val movieService: MovieApiService,
+    private val movieDao: MovieDao,
+    private val mapperToEntity: MoviesEntityMapper
+) {
 
-    private val mapper = MovieMapper()
+    suspend fun refreshMovies() {
+        try {
+            val response = movieService.getPopular("6f65d57c475f6a1b3a9eedd189c66691")
+            val movies = response.body()?.movieDtos?.map {
+                mapperToEntity.map(it)
+            }
+            movies?.let { movieDao.insertMovies(it) }
+        } catch (e: IOException){
 
-    fun getPopular(): Flow<State<List<Movie>?>> =
-        flow {
-            emit(State.Loading)
-            try{
-                val movies = API.movieService
-                    .getPopular("6f65d57c475f6a1b3a9eedd189c66691")
-                    .body()
-                    ?.movieDtos
-                    ?.map { movieDto ->
-                        mapper.map(movieDto)
-                    }
-                emit(State.Success(movies))
-            }catch (e: IOException){
-                emit(State.Failed(e.message.toString()))
+        }
+    }
+
+    fun getPopular(): Flow<List<Movie>> {
+        return movieDao.getMovies().map {
+            it.map { movieEntity ->
+                mapperToMovie.map(movieEntity)
             }
         }
+    }
+
+//    fun getPopular(): Flow<State<List<Movie>?>> =
+//        flow {
+//            emit(State.Loading)
+//            try {
+//                val movies = movieService
+//                    .getPopular("6f65d57c475f6a1b3a9eedd189c66691")
+//                    .body()
+//                    ?.movieDtos
+//                    ?.map { movieDto ->
+//                        mapper.map(movieDto)
+//                    }
+//                emit(State.Success(movies))
+//            } catch (e: IOException) {
+//                emit(State.Failed(e.message.toString()))
+//            }
+//        }
 //    private fun <T> wrapWithFlow(function: suspend () -> Response<T>): Flow<State<T?>> =
 //        flow {
 //            emit(State.Loading)

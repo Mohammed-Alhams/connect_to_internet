@@ -1,33 +1,34 @@
 package com.example.connecttointernet.data.local
 
-import android.content.Context
 import androidx.room.Database
-import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.connecttointernet.data.local.daos.MovieDao
 import com.example.connecttointernet.data.local.entities.MovieEntity
+import javax.inject.Inject
 
 @Database(entities = [MovieEntity::class], version = 1)
-abstract class MoviesDatabase : RoomDatabase(){
+abstract class MoviesDatabase : RoomDatabase() {
 
-    abstract fun moviesDao() : MovieDao
+    abstract fun moviesDao(): MovieDao
 
-    companion object{
+    @Inject
+    lateinit var instance: MoviesDatabase
 
-        private const val DATABASE_NAME = "moviesDB"
+//    companion object {
+//
+//        private const val DATABASE_NAME = "moviesDB"
+//
+//
+////        fun init() =
+////            instance ?: synchronized(this){  }
+//
+//        fun getMovieDatabaseInstance() = synchronized(this) { instance }
+//    }
 
-        private var instance : MoviesDatabase? = null
-
-        fun init(context: Context) =
-            instance ?: synchronized(this){ buildDatabase(context).also { instance = it } }
-
-        fun getInstance() = instance!!
-
-        private fun buildDatabase(context: Context) =
-            Room.databaseBuilder(context, MoviesDatabase::class.java, DATABASE_NAME)
-                .fallbackToDestructiveMigration()
-                .build()
-
-    }
+//        private fun buildDatabase(@ApplicationContext context: Context) =
+//            Room.databaseBuilder(context, MoviesDatabase::class.java, DATABASE_NAME)
+//                .fallbackToDestructiveMigration()
+//                .build()
 
 }
+
