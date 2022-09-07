@@ -23,14 +23,14 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         navController = findNavController(R.id.fragment_container)
-        NavigationUI.setupActionBarWithNavController(this, navController)
+        NavigationUI.setupActionBarWithNavController(this, navController, binding.drawerLayout)
 
+        binding.navView.setupWithNavController(navController)
         binding.bottomNavigationView.setupWithNavController(navController)
 
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        navController.navigateUp()
-        return true
+        return NavigationUI.navigateUp(navController, binding.drawerLayout)
     }
 }

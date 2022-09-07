@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:id="@+id/blankAFragment"
+        android:icon="@drawable/ic_baseline_home_24"
+        app:showAsAction="ifRoom"
+        android:title="blankAFragment"
+        />
+    <item android:id="@+id/blankBFragment"
+        android:icon="@drawable/ic_baseline_chat_24"
+        app:showAsAction="ifRoom"
+        android:title="blankBFragment"
+        />
+    <item android:id="@+id/blankCFragment"
+        android:icon="@drawable/ic_baseline_friends_24"
+        app:showAsAction="ifRoom"
+        android:title="blankCFragment"
+        />
+    <item android:id="@+id/blankDFragment"
+        android:icon="@drawable/ic_baseline_settings_24"
+        app:showAsAction="ifRoom"
+        android:title="blankDFragment"
+        />
+</menu>
