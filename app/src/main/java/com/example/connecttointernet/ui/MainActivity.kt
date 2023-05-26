@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.example.connecttointernet.R
-import com.example.connecttointernet.data.database.NoteDatabase
+import com.example.connecttointernet.data.local.NoteDatabase
 import com.example.connecttointernet.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {

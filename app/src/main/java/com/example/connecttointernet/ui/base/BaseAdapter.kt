@@ -1,4 +1,4 @@
-package com.example.connecttointernet.ui.bases
+package com.example.connecttointernet.ui.base
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

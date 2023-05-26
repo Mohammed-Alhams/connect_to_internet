@@ -1,4 +1,4 @@
-package com.example.connecttointernet.data.database
+package com.example.connecttointernet.data.local
 
 import android.content.Context
 import androidx.room.Database

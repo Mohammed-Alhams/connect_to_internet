@@ -2,7 +2,7 @@ package com.example.connecttointernet.util
 
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.connecttointernet.ui.bases.BaseAdapter
+import com.example.connecttointernet.ui.base.BaseAdapter
 
 @BindingAdapter("app:adapterItems")
 fun <T> adapterItems(view: RecyclerView, items: List<T>?) {

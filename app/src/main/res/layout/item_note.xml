@@ -10,7 +10,7 @@
 
         <variable
             name="listener"
-            type="com.example.connecttointernet.ui.bases.IBaseInterActionListener" />
+            type="com.example.connecttointernet.ui.base.IBaseInterActionListener" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

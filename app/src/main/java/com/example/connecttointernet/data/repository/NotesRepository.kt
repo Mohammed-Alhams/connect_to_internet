@@ -1,7 +1,7 @@
-package com.example.connecttointernet.data.repositories
+package com.example.connecttointernet.data.repository
 
 import com.example.connecttointernet.data.Note
-import com.example.connecttointernet.data.database.NoteDatabase
+import com.example.connecttointernet.data.local.NoteDatabase
 
 class NotesRepository {
 

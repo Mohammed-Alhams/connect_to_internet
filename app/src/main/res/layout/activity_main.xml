@@ -17,7 +17,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             tools:layout="@layout/fragment_notes"
-            android:name="com.example.connecttointernet.ui.NotesFragment"
+            android:name="com.example.connecttointernet.ui.notes.NotesFragment"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

@@ -1,11 +1,11 @@
-package com.example.connecttointernet.viewModels
+package com.example.connecttointernet.ui.notes
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.connecttointernet.data.Note
-import com.example.connecttointernet.data.repositories.NotesRepository
-import com.example.connecttointernet.ui.bases.IBaseInterActionListener
+import com.example.connecttointernet.data.repository.NotesRepository
+import com.example.connecttointernet.ui.base.IBaseInterActionListener
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.launch
